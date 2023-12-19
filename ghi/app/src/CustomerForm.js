@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react';
 
-function SalespersonForm () {
+function CustomerForm () {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
-    employee_id: '',
+    address: '',
+    phone_number: '',
   })
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const url = `http://localhost:8090/api/salespeople/`;
+    const url = `http://localhost:8090/api/customers/`;
 
     const fetchConfig = {
       method: "post",
@@ -26,7 +27,8 @@ function SalespersonForm () {
       setFormData({
         first_name: '',
         last_name: '',
-        employee_id: '',
+        address: '',
+        phone_number: '',
       });
     }
   }
@@ -47,8 +49,8 @@ function SalespersonForm () {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Add a Salesperson</h1>
-          <form onSubmit={handleSubmit} id="create-salesperson-form">
+          <h1>Add a Customer</h1>
+          <form onSubmit={handleSubmit} id="create-customer-form">
             <div className="form-floating mb-3">
               <input onChange={handleFormChange} value={formData.first_name} placeholder="First Name" required name="first_name" id="first_name" autoComplete="off" className="form-control" />
               <label htmlFor="first_name">First Name</label>
@@ -58,8 +60,12 @@ function SalespersonForm () {
               <label htmlFor="last_name">Last Name</label>
             </div>
             <div className="form-floating mb-3">
-              <input onChange={handleFormChange} value={formData.employee_id} placeholder="Employee ID" required name="employee_id" id="employee_id" autoComplete="off" className="form-control" />
-              <label htmlFor="employee_id">Employee ID</label>
+              <input onChange={handleFormChange} value={formData.address} placeholder="Address" required name="address" id="address" autoComplete="off" className="form-control" />
+              <label htmlFor="address">Address</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input onChange={handleFormChange} value={formData.phone_number} placeholder="Phone Number" required name="phone_number" id="phone_number" autoComplete="off" className="form-control" />
+              <label htmlFor="phone_number">Phone Number</label>
             </div>
             <button className="btn btn-primary">Create</button>
           </form>
@@ -69,4 +75,4 @@ function SalespersonForm () {
   );
 }
 
-export default SalespersonForm;
+export default CustomerForm;
