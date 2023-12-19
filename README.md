@@ -14,16 +14,13 @@ microservice, here.
 
 ## Sales microservice
 
-Explain your models and integration with the inventory
-microservice, here.
-
-The sales microservice has 4 models:
+The sales microservice has the following models:
 1. A salesperson model containing first_name, last_name, and employee_id fields
 2. A customer model containing first_name, last_name, address, and phone_number fields
 3. A sale model containing automobile, salesperson, customer, and price fields (all fields but price are fks)
 4. An automobileVO model containing vin and sold fields
 
-API endpoints
+API endpoints:
 1. Action: list salespeople
     Method: GET
     URL: http://localhost:8090/api/salespeople/
