@@ -23,6 +23,20 @@ function Nav() {
               <NavLink className="nav-link" to="/customers">Customers</NavLink>
             </li>
           </ul>
+          <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle pr-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Services
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><NavLink className="dropdown-item" to="/technicians">Technicians</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/technicians/add">Add a Technician</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/appointments">Service Appointments</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/appointments/add">Create a Service Appointment</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/appointments/history">Service History</NavLink></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

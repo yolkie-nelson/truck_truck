@@ -10,7 +10,7 @@ class Technician(models.Model):
 
 
 class AutomobileVO(models.Model):
-    vin = models.CharField(max_length=17)
+    vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField(default=False)
 
     def __str__(self):
@@ -20,7 +20,7 @@ class AutomobileVO(models.Model):
 class Appointment(models.Model):
     date_time = models.DateTimeField()
     reason = models.CharField(max_length=255)
-    status = models.CharField(max_length=20, default="Scheduled")
+    status = models.CharField(max_length=20, default="created")
     vin = models.CharField(max_length=17)
     customer = models.CharField(max_length=255)
     technician = models.ForeignKey(

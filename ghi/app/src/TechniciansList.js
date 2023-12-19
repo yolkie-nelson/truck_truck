@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function SalespeopleList() {
-  const [salespeople, setSalespeople] = useState([])
+function TechniciansList() {
+  const [technicians, setTechnicians] = useState([])
 
   const getData = async () => {
-    const response = await fetch('http://localhost:8090/api/salespeople/');
+    const response = await fetch('http://localhost:8080/api/technicians/');
 
     if (response.ok) {
       const data = await response.json();
-      setSalespeople(data.salespeople)
+      setTechnicians(data.technicians)
     }
   }
 
@@ -20,7 +20,7 @@ function SalespeopleList() {
 
   return (
     <>
-    <h1>Salespeople</h1>
+    <h1>Technicians</h1>
     <table className="table table-striped">
       <thead>
         <tr>
@@ -30,24 +30,24 @@ function SalespeopleList() {
         </tr>
       </thead>
       <tbody>
-        {salespeople.map(salesperson => {
+        {technicians.map(technician => {
           return (
-            <tr key={salesperson.id}>
-                <td>{ salesperson.first_name }</td>
-                <td>{ salesperson.last_name }</td>
-                <td>{ salesperson.employee_id }</td>
+            <tr key={technician.id}>
+                <td>{ technician.first_name }</td>
+                <td>{ technician.last_name }</td>
+                <td>{ technician.employee_id }</td>
             </tr>
           );
         })}
       </tbody>
     </table>
     <div>
-      <Link to="/salespeople/create/">
-        <button className="btn btn-primary btn-lg">Add a salesperson</button>
+      <Link to="/technicians/add/">
+        <button className="btn btn-primary btn-lg">Add a technician</button>
       </Link>
     </div>
     </>
   );
 }
 
-export default SalespeopleList;
+export default TechniciansList;
