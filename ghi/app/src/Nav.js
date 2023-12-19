@@ -12,6 +12,7 @@ function Nav() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink className="nav-link" to="/salespeople/create">Add a Salesperson</NavLink>
+              <NavLink className="nav-link" to="/salespeople">Salespeople</NavLink>
             </li>
           </ul>
         </div>
