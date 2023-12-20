@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 
 function AppointmentsHistory() {
     const [appointments, setAppointments] = useState([]);
     const [automobiles, setAutomobiles] = useState([]);
+    const [filterValue, setFilterValue] = useState("");
 
     const getData = async () => {
         const response = await fetch('http://localhost:8080/api/appointments/');
@@ -50,10 +50,22 @@ function AppointmentsHistory() {
     fetchData()
   }, [])
 
+  function handleFilterChange(e) {
+    console.log (e.target.value);
+    setFilterValue(e.target.value)
+  }
+
+  function getFilterValue () {
+    return appointments
+    .filter(appointment =>
+      appointment.vin.includes(filterValue))
+  }
+
 
   return (
-    <>
+    <div className="mt-4">
     <h1>Service History</h1>
+    <input onChange={handleFilterChange} />
     <table className="table table-striped">
       <thead>
         <tr>
@@ -68,7 +80,7 @@ function AppointmentsHistory() {
         </tr>
       </thead>
       <tbody>
-        {appointments.map(appointment => {
+        {getFilterValue().map(appointment => {
             const isVinInAutomobiles = automobiles.some(auto => auto.vin === appointment.vin);
             const isVip = isVinInAutomobiles ?  'Yes' : 'No';
             return (
@@ -86,7 +98,7 @@ function AppointmentsHistory() {
         })}
       </tbody>
     </table>
-    </>
+    </div>
   );
 }
 

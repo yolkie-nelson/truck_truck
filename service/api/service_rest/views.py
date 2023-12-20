@@ -1,39 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Technician, Appointment, AutomobileVO
-from common.json import ModelEncoder
+from .models import Technician, Appointment
 from django.views.decorators.http import require_http_methods
+from .encoders import TechnicianDetailEncoder, AppointmentEncoder
 import json
-
-class TechnicianDetailEncoder(ModelEncoder):
-    model = Technician
-    properties = [
-        "first_name",
-        "last_name",
-        "employee_id",
-        "id"
-    ]
-
-
-class AutomobileVOEncoder(ModelEncoder):
-    model = AutomobileVO
-    properties = [
-        "vin",
-        "sold"
-    ]
-
-class AppointmentEncoder(ModelEncoder):
-    model = Appointment
-    properties = [
-        "date_time",
-        "reason",
-        "status",
-        "vin",
-        "customer",
-        "id",
-        "technician"
-    ]
-    encoders = {"technician": TechnicianDetailEncoder()}
 
 
 @require_http_methods(["GET", "POST"])
@@ -58,8 +28,6 @@ def api_list_technicians(request):
                 {"message": "Invalid JSON data"},
                 status=400
             )
-
-
 
 
 @require_http_methods(["GET", "PUT", "DELETE"])
@@ -133,27 +101,6 @@ def api_show_appointment(request, id):
     else:
         count, _ = Technician.objects.filter(id=id).delete()
         return JsonResponse({"deleted": count > 0})
-
-    # request.method == "DELETE":
-
-    # else:
-    #     content = json.loads(request.body)
-    #     try:
-    #         if "technician" in content:
-    #             technician = Technician.objects.get(id=content["technician"])
-    #             content["technician"] = technician
-    #     except Technician.DoesNotExist:
-    #         return JsonResponse(
-    #             {'message': "Invalid technician id"},
-    #             status=400
-    #         )
-    #     Appointment.objects.filter(id=id).update(**content)
-    #     appointment = Appointment.objects.get(id=id)
-    #     return JsonResponse(
-    #         appointment,
-    #         encoder=AppointmentEncoder,
-    #         safe=False,
-    #     )
 
 
 @require_http_methods(["PUT"])

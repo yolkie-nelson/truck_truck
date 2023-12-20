@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 
 const initialData = {
@@ -14,10 +13,8 @@ const initialData = {
 function AppointmentForm() {
   const [technicians, setTechnician] = useState([]);
   const [formData, setFormData] = useState(initialData);
-
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-
   const fetchData = async () => {
     const url = 'http://localhost:8080/api/technicians/';
 
@@ -42,10 +39,6 @@ function AppointmentForm() {
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
-    setFormData({
-      ...formData,
-      date: e.target.value,
-    });
   };
 
   const handleTimeChange = (e) => {
@@ -75,7 +68,7 @@ function AppointmentForm() {
     };
 
     const response = await fetch(appointmentUrl, fetchConfig);
-    console.log(fetchConfig)
+
 
     if (response.ok) {
         setFormData(initialData);
