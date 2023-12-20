@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const initialData = {
   vin: '',
+  customer: '',
   date_time: '',
   technician: '',
   reason: '',
@@ -13,6 +14,7 @@ const initialData = {
 function AppointmentForm() {
   const [technicians, setTechnician] = useState([]);
   const [formData, setFormData] = useState(initialData);
+
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
@@ -50,25 +52,30 @@ function AppointmentForm() {
     setTime(e.target.value);
     setFormData({
       ...formData,
-      time: e.target.value,
+      date_time: e.target.value,
     });
   };
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const dateTimeString = date + 'T' + time;
     const dateTimeObject = new Date(dateTimeString);
+    const isoDateTimeString = dateTimeObject.toISOString();
+
     const appointmentUrl = 'http://localhost:8080/api/appointments/';
 
     const fetchConfig = {
       method: 'post',
-      body: JSON.stringify({...formData, date_time: dateTimeObject }),
+      body: JSON.stringify({...formData, date_time: isoDateTimeString }),
       headers: {
         'Content-Type': 'application/json',
       },
     };
 
     const response = await fetch(appointmentUrl, fetchConfig);
+    console.log(fetchConfig)
 
     if (response.ok) {
         setFormData(initialData);
@@ -114,6 +121,10 @@ function AppointmentForm() {
                     </option>
                   ))}
                 </select>
+              </div>
+              <div className="form-floating mb-3">
+                <input onChange={handleFormChange} placeholder="Reason" required type="text" name="reason" id="reason" className="form-control" value={formData.reason} />
+                <label htmlFor="reason">Reason</label>
               </div>
               <button className="btn btn-lg btn-primary">Create</button>
             </form>
