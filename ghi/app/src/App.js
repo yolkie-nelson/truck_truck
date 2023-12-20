@@ -5,6 +5,9 @@ import SalespersonForm from './SalespersonForm';
 import SalespeopleList from './SalespeopleList';
 import CustomerForm from './CustomerForm';
 import CustomersList from './CustomersList';
+import SaleForm from './SaleForm';
+import SalesList from './SalesList';
+import SalesHistory from './SalesHistory'
 import TechnicianForm from './TechnicianForm';
 import TechniciansList from './TechniciansList';
 import AppointmentForm from './AppointmentForm';
@@ -26,6 +29,11 @@ function App() {
           <Route path="customers">
             <Route path="" element={<CustomersList />} />
             <Route path="create" element={<CustomerForm />} />
+          </Route>
+          <Route path="sales">
+            <Route path="" element={<SalesList />} />
+            <Route path="create" element={<SaleForm />} />
+            <Route path="history" element={<SalesHistory />} />
           </Route>
           <Route path="technicians">
             <Route path="" element={<TechniciansList />} />

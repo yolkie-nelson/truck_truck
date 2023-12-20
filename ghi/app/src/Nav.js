@@ -22,6 +22,15 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/customers">Customers</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/sales/create">Add a Sale</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/sales">Sales</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/sales/history">Sales History</NavLink>
+            </li>
           </ul>
           <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
             <li className="nav-item dropdown">
