@@ -447,34 +447,118 @@ The sales microservice has the following models:
 3. A sale model containing automobile, salesperson, customer, and price fields (all fields but price are fks)
 4. An automobileVO model containing vin and sold fields
 
-API endpoints:
-1. Action: list salespeople
-    Method: GET
-    URL: http://localhost:8090/api/salespeople/
-2. Action: create a salesperson
-    Method: POST
-    URL: http://localhost:8090/api/salespeople/
-3. Action: delete a specific salesperson
-    Method: DELETE
-    URL: http://localhost:8090/api/salespeople/:id/
-4. Action: list customers
-    Method: GET
-    URL: http://localhost:8090/api/customers/
-5. Action: create a customer
-    Method: POST
-    URL: http://localhost:8090/api/customers/
-6. Action: delete a specific customer
-    Method: DELETE
-    URL: http://localhost:8090/api/customers/:id/
-7. Action: list sales
-    Method: GET
-    URL: http://localhost:8090/api/sales/
-2. Action: create a sale
-    Method: POST
-    URL: http://localhost:8090/api/sales/
-3. Action: delete a specific sale
-    Method: DELETE
-    URL: http://localhost:8090/api/sales/:id/
-
 Integration with the inventory microservice:
-    This microservice has an automobile poller. It updates the AutomobileVO every minute with updated VINs from the inventory service.
+    This microservice has an automobile poller. It updates the AutomobileVO every minute with updated VINs and sold statuses from the inventory service.
+
+
+### Salesperson
+
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List salespeople | GET | http://localhost:8090/api/salespeople/
+| Create a salesperson | POST | http://localhost:8090/api/salespeople/
+| Delete a salesperson | DELETE | http://localhost:8090/api/salespeople/:id/
+
+
+LIST SALESPEOPLE: This will return a list of all current salespeople.
+This is the format that will be displayed. Note: The "id" is automatically assigned.
+```
+"salespeople": [
+		{
+			"first_name": "John",
+			"last_name": "Doe",
+			"employee_id": "jdoe",
+			"id": 2
+		}
+]
+```
+CREATE SALESPERSON - This will create a salesperson with the data input. It must follow the format. Remember, the "id" is automatically generated, so don't fill that in. To verify that it was added, just look at your salespeople list after creating a salesperson and it should be there.
+```
+		{
+      "first_name": "John",
+      "last_name": "Doe",
+      "employee_id": "jdoe"
+    }
+
+```
+DELETE SALESPERSON- Just input the "id" of the salesperson you want to delete into 'http://localhost:8090/api/salespeople/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/salespeople/2/' into the field and send the request. 
+
+
+### Customer
+
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List customers | GET | http://localhost:8090/api/customers/
+| Create a customer | POST | http://localhost:8090/api/customers/
+| Delete a customer | DELETE | http://localhost:8090/api/customers/:id/
+
+
+LIST CUSTOMERS: This will return a list of all current customers.
+This is the format that will be displayed. Note: The "id" is automatically assigned.
+```
+"customers": [
+		{
+			"first_name": "Ann",
+			"last_name": "Dahl",
+			"address": "323 Retta Corner Abagailhaven, DE 14354-9841",
+			"phone_number": "098-765-4321",
+			"id": 5
+		}
+]
+```
+CREATE CUSTOMER - This will create a customer with the data input. It must follow the format. Remember, the "id" is automatically generated, so don't fill that in. To verify that it was added, just look at your customers list after creating a customer and it should be there.
+```
+		{
+      "first_name": "Ann",
+      "last_name": "Dahl",
+      "address": "323 Retta Corner Abagailhaven, DE 14354-9841",
+      "phone_number": "098-765-4321"
+    }
+
+```
+DELETE CUSTOMER- Just input the "id" of the customer you want to delete into 'http://localhost:8090/api/customers/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/customers/2/' into the field and send the request. 
+
+### Sale
+
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List sales | GET | http://localhost:8090/api/sales/
+| Create a sale | POST | http://localhost:8090/api/sales/
+| Delete a sale | DELETE | http://localhost:8090/api/sales/:id/
+
+
+LIST SALES: This will return a list of all current sales.
+This is the format that will be displayed. Note: The "id", the salesperson properties (first_name, last_name, and employee_id), and the customer properties (first_name, last_name, address, phone_number, and id) are automatically assigned.
+```
+"sales": [
+		{
+			"salesperson": {
+				"first_name": "John",
+				"last_name": "Doe",
+				"employee_id": "jdoe"
+			},
+			"customer": {
+				"first_name": "Ann",
+				"last_name": "Dahl",
+				"address": "323 Retta Corner Abagailhaven, DE 14354-9841",
+				"phone_number": "098-765-4321",
+				"id": 5
+			},
+			"price": 1500,
+			"id": 27,
+			"automobile": "1C3CC5FB2AN120174"
+		},
+]
+```
+CREATE SALE - This will create a sale with the data input. It must follow the format. Remember, the "id", salesperson properties, and customer properties are automatically generated, so don't fill that in. To pick a salesperson and customer, add them by their ids. So to add John and Ann you would set salesperson to 2 and customer to 5. To verify that it was added, just look at your sales list after creating a sale and it should be there.
+```
+		{
+      "automobile": "1C3CC5FB2AN120174",
+      "salesperson": 2,
+      "customer": 5,
+      "price": 1500
+    }
+
+```
+DELETE SALE- Just input the "id" of the sale you want to delete into 'http://localhost:8090/api/sales/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/sales/2/' into the field and send the request. 
+
