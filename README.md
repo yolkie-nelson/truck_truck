@@ -5,7 +5,9 @@ CarCar is a software application designed to oversee various operations within a
 Team:
 
 Lily Salzman - Automobile Sales
+
 Hannah Nelly - Automobile Service
+
 
 ## Getting Started
 
@@ -14,7 +16,7 @@ Hannah Nelly - Automobile Service
 1. Fork this repository:
 
 2. Clone the forked repository onto your local computer:
-git clone <<respository.url.here>>
+git clone <<https://gitlab.com/lilysalz/project-beta.git>
 
 3. Build and run the project using Docker with these commands:
 ```
