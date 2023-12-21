@@ -27,10 +27,13 @@ function ManufacturerForm () {
       setFormData({
         name: '',
       });
+      document.getElementById('success-message').classList.remove('d-none');
+    } else {
+      document.getElementById('success-message').classList.add('d-none');
     }
   }
 
-  
+
   const handleFormChange = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;
@@ -52,6 +55,9 @@ function ManufacturerForm () {
             </div>
             <button type="submit" className="btn btn-primary">Add</button>
           </form>
+          <div className="alert alert-success mt-3 d-none" id="success-message">
+                Success!
+          </div>
         </div>
       </div>
     </div>
