@@ -72,6 +72,7 @@ function AppointmentForm() {
 
     if (response.ok) {
         setFormData(initialData);
+        console.log(initialData)
         document.getElementById('success-message').classList.remove('d-none');
     } else {
         document.getElementById('success-message').classList.add('d-none');

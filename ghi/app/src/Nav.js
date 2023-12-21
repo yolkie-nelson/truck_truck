@@ -14,7 +14,7 @@ function Nav() {
               <a className="nav-link dropdown-toggle pr-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Sales
               </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <ul className="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                 <li><NavLink className="dropdown-item"  to="/salespeople/create">Add a Salesperson</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/salespeople">Salespeople</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/customers/create">Add a customer</NavLink></li>
@@ -30,7 +30,7 @@ function Nav() {
               <a className="nav-link dropdown-toggle pr-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Services
               </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <ul className="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                 <li><NavLink className="dropdown-item" to="/technicians">Technicians</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/technicians/create">Add a Technician</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/appointments">Service Appointments</NavLink></li>

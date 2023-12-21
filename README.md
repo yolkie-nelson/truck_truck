@@ -1,6 +1,6 @@
 # CarCar
 
-CarCar is an application for managing the aspects of an automobile dealership. It manages the inventory, automobile sales, and automobile services.
+CarCar is a software application designed to oversee various operations within an automobile dealership, including inventory management, sales of automobiles, and handling automobile services.
 
 Team:
 
@@ -9,9 +9,9 @@ Hannah Nelly - Automobile Service
 
 ## Getting Started
 
-**Make sure you have Docker, Git, and Node.js 18.2 or above**
+**Make sure you have Docker, Git, and Django 4.0.3 or above**
 
-1. Fork this repository
+1. Fork this repository:
 
 2. Clone the forked repository onto your local computer:
 git clone <<respository.url.here>>
@@ -39,11 +39,11 @@ CarCar is made up of 3 microservices which interact with one another.
 
 ![Img](/images/CarCarDiagram.png)
 
-## Integration - How we put the "team" in "team"
+## Integration
 
-Our Inventory and Sales domains work together with our Service domain to make everything here at **CarCar** possible.
+Our Service and Sales domains collaborate with our Inventory domain to facilitate the functionality of CarCar.
 
-How this all starts is at our inventory domain. We keep a record of automobiles on our lot that are available to buy. Our sales and service microservices obtain information from the inventory domain, using a **poller**, which talks to the inventory domain to keep track of which vehicles we have in our inventory so that the service and sales team always has up-to-date information.
+Our Inventory domain holds the record of available vehicles for purchase. The Sales and Service microservices use a **poller** to regularly fetch updated information from the Inventory domain. This ensures our Service and Sales teams have current inventory details at all times.
 
 
 ## Accessing Endpoints to Send and View Data: Access Through Insomnia & Your Browser
@@ -55,9 +55,9 @@ How this all starts is at our inventory domain. We keep a record of automobiles 
 | ----------- | ----------- | ----------- |
 | List manufacturers | GET | http://localhost:8100/api/manufacturers/
 | Create a manufacturer | POST | http://localhost:8100/api/manufacturers/ |
-| Get a specific manufacturer | GET | http://localhost:8100/api/manufacturers/id/
-| Update a specific manufacturer | PUT | http://localhost:8100/api/manufacturers/id/
-| Delete a specific manufacturer | DELETE | http://localhost:8100/api/manufacturers/id/
+| Get a specific manufacturer | GET | http://localhost:8100/api/manufacturers/<int:pk>/
+| Update a specific manufacturer | PUT | http://localhost:8100/api/manufacturers/<int:pk>/
+| Delete a specific manufacturer | DELETE | http://localhost:8100/api/manufacturers<int:pk>/
 
 
 JSON body to send data:
@@ -96,9 +96,9 @@ Getting a list of manufacturers return value:
 | ----------- | ----------- | ----------- |
 | List vehicle models | GET | http://localhost:8100/api/models/
 | Create a vehicle model | POST | http://localhost:8100/api/models/
-| Get a specific vehicle model | GET | http://localhost:8100/api/models/id/
-| Update a specific vehicle model | PUT | http://localhost:8100/api/models/id/
-| Delete a specific vehicle model | DELETE | http://localhost:8100/api/models/id/
+| Get a specific vehicle model | GET | http://localhost:8100/api/models/<int:pk>/
+| Update a specific vehicle model | PUT | http://localhost:8100/api/models/<int:pk>/
+| Delete a specific vehicle model | DELETE | http://localhost:8100/api/models/<int:pk>/
 
 Create and update a vehicle model (SEND THIS JSON BODY):
 ```
@@ -151,15 +151,15 @@ Getting a List of Vehicle Models Return Value:
 ```
 
 ### Automobiles:
-- The **'vin'** at the end of the detail urls represents the VIN for the specific automobile you want to access. This is not an integer ID. This is a string value so you can use numbers and/or letters.
+- The **vin** mentioned at the end of the detail URLs denotes the Vehicle Identification Number (VIN) specific to the automobile you intend to access. It's essential to note that this is not an integer ID but a string value, allowing for the use of both numbers and letters in the VIN representation.
 
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
 | List automobiles | GET | http://localhost:8100/api/automobiles/
 | Create an automobile | POST | http://localhost:8100/api/automobiles/
-| Get a specific automobile | GET | http://localhost:8100/api/automobiles/vin/
-| Update a specific automobile | PUT | http://localhost:8100/api/automobiles/vin/
-| Delete a specific automobile | DELETE | http://localhost:8100/api/automobiles/vin/
+| Get a specific automobile | GET | http://localhost:8100/api/automobiles/<str:vin>/
+| Update a specific automobile | PUT | http://localhost:8100/api/automobiles/<str:vin>/
+| Delete a specific automobile | DELETE | http://localhost:8100/api/automobiles/<str:vin>/
 
 
 Create an automobile (SEND THIS JSON BODY):
@@ -252,14 +252,11 @@ Getting a list of Automobile Return Value:
 
 ## Service microservice
 
-Welcome to Services!
-As explained above, the service microservice is an extension of the dealership that looks to provide service repairs for your vehicle.
+Our Service microservice is an extension of the dealership, focusing on providing vehicle repair services.
 
-As automobiles are purchased, we keep track of the vin number of each automobile and you are able to receive the special perks of being a VIP!
-As a VIP, you will receive free oil changes for life, complimentary neck massages while in our waiting room, and free car washes whenever you would like!
+Upon purchasing an automobile, we track its VIN number. As a VIP member, you'll enjoy exclusive benefits.
 
-This area is going to be broken down into the various API endpoints (Fancy way of saying your web address url) for service along with the format needed to send data to each component.
-The basics of service are as follows:
+This section will outline the different API endpoints (web address URLs) for service, along with the required data formats for each component. The fundamental aspects of our service include:
 1. Our technician staff
 2. Service Appointments
 
@@ -281,8 +278,9 @@ Example:
 {
 	"technicians": [
 		{
-			"name": "Donald",
-			"employee_number": 1,
+			"first_name": "Hannah",
+			"last_name": "Nelly",
+			"employee_id": "hnelly",
 			"id": 1
 		},
 ```
@@ -294,24 +292,30 @@ This would then lead to this:
 
 ```
 {
-	"name": "Donald",
-	"employee_number": 1,
-	"id": 1
-}
+	"technician": [
+		{
+			"first_name": "Hannah",
+			"last_name": "Nelly",
+			"employee_id": "hnelly",
+			"id": 1
+		},
 ```
-This how our technician detail is displayed. If you want to change the technician, just change the value at the end to match the "id" of the technician you want to display.
 
-CREATE TECHNICIAN - What if we hired a new technician (In this economy even)? To create a technician, you would use the following format to input the data and you would just submit this as a POST request.
+Here is how the technician's details are presented. To update the displayed technician, simply modify the value at the end to correspond to the desired "id" of the technician you wish to display.
+
+CREATE TECHNICIAN - In the event of hiring a new technician, the process involves submitting a POST request using the following format to input the necessary data.
 ```
 {
-	"name": "Liz",
-	"employee_number": 2
+	"first_name": "Liz",
+	"last_name": "Salz",
+	"employee_id": "lsalz"
 }
 ```
-As you can see, the data has the same format. In this example, we just changed the "name" field from "Donald" to "Liz". We also assigned her the "employee_number" value of "2" instead of "1".
-Once we have the data into your request, we just hit "Send" and it will create the technician "Liz". To verify that it worked, just select follow the "LIST TECHNICIAN" step from above to show all technicians.
-With any luck, both Donald and Liz will be there.
-Here is what you should see if you select "LIST TECHNICIAN" after you "CREATE TECHNICIAN" with Liz added in:
+The data maintains a consistent format. In this example, we've altered the "name" field from "Hannah" to "Liz" and assigned her the "employee_id" value of "2" instead of "1".
+
+Once the data is entered into your request, simply click "Send" to create the technician "Liz". To confirm its success, follow the "LIST TECHNICIAN" step from above to display all technicians. Ideally, both Hannah and Liz will be listed.
+
+Upon selecting "LIST TECHNICIAN" after "CREATE TECHNICIAN" with Liz added, you should observe the following output:
 ```
 {
 	"technicians": [
@@ -327,22 +331,23 @@ Here is what you should see if you select "LIST TECHNICIAN" after you "CREATE TE
 		},
 ```
 
-DELETE TECHNICIAN - If we decide to "go another direction" as my first boss told me, then we need to remove the technician from the system. To do this, you just need to change the request type to "DELETE" instead of "POST". You also need to pull the "id" value just like you did in "TECHNICIAN DETAIL" to make sure you delete the correct one. Once they are "promoted to customer" they will no longer be in our page that lists
-all technicians.
+DELETE TECHNICIAN - To remove a technician from the system, change the request type from "POST" to "DELETE." Fetch the corresponding "id" value, similar to the process in "TECHNICIAN DETAIL," ensuring the deletion of the correct technician. They will no longer appear on our page listing all technicians.
 
 
-And that's it! You can view all technicians, look at the details of each technician, and create technicians.
-Remember, the "id" field is AUTOMATICALLY generated by the program. So you don't have to input that information. Just follow the steps in CREATE TECHNICIAN and the "id" field will be populated for you.
-If you get an error, make sure your server is running and that you are feeding it in the data that it is requesting.
-If you feed in the following:
+And that concludes the process! You can view all technicians, access individual technician details, and create new technicians.
+
+Remember, the "id" field is automatically generated by the program, so you don't need to input that information. Simply follow the steps in CREATE TECHNICIAN, and the "id" field will be filled automatically for you.
+
+If you encounter an error, ensure that your server is operational and that you are providing the requested data. If you input the following:
 ```
 {
 	"name": "Liz",
 	"employee_number": 3,
-	"favorite_food": "Tacos"
+	"favorite_food": "Tacos",
+	"employee_id": 1,
 }
 
-You will get an error because the system doesn't know what what to do with "Tacos" because we aren't ever asking for that data. We can only send in data that Json is expecting or else it will get angry at us.
+An error will occur because the system isn't designed to handle "employee_number" or "favorite_food" as they're not properties, and integer 1 is not a data point requested by the JSON structure for "employee_id". The system only accepts data that adheres to the expected JSON format. Sending in unexpected data might cause errors as the system won't recognize or know how to process it.
 
 ```
 
@@ -352,92 +357,45 @@ You will get an error because the system doesn't know what what to do with "Taco
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
 | List appointments | GET | http://localhost:8080/api/appointments/
-| Appointment detail | GET | http://localhost:8080/api/appointments/<int:id>
 | Create appointment | POST | http://localhost:8080/api/appointments/
 | Delete appointment | DELETE | http://localhost:8080/api/appointments/<int:id>
 | Update appointment Status | PUT |  http://localhost:8080/api/appointments/<str:action>
 
 
-LIST SERVICE APPOINTMENT: This will return a list of all current service appointments.
-This is the format that will be displayed.
-Spoiler alert! Remember, the way that it is returned to you is the way that the data needs to be accepted. Remember, the "id" is automatically generated, so you don't need to input that.
-Also, the "date" and "time" fields HAVE TO BE IN THIS FORMAT
+LIST APPOINTMENT: This will display a list of all service appointments. The format displayed is how the data needs to be accepted.
+
+Keep in mind that the data is returned in the same format that is expected for acceptance. The "id" is automatically generated, so manual input for it is unnecessary.
+
+Additionally, note that the "date_time" field must adhere to this specific format for the system to accept it.
 ```
 {
-	"service_appointment": [
+	"appointments": [
 		{
-			"id": 1,
+			"date_time": "12:30:00T2021-07-14",
+			"reason": "tires",
+			"status": false,
 			"vin": "1222",
-			"customer_name": "Barry",
-			"time": "12:30:00",
-			"date": "2021-07-14",
-			"reason": "mah tires",
-			"vip_status": false,
+			"customer": "Barry",
 			"technician": "Liz"
 		},
+
+
 ```
-SERVICE APPOINTMENT DETAIL: This will return the detail of each specific service appointment.
+The "CREATE APPOINTMENT" feature enables the creation of a service appointment using the provided input data. It is crucial to adhere to the specified format. The "id" is automatically generated, so there's no need to fill it in manually.
+
+To confirm the successful addition of the service appointment, simply check your service appointment list after creating a new service appointment, and it should appear in the list.
 ```
-{
-	"id": 1,
-	"vin": "1222",
-	"customer_name": "Barry",
-	"time": "12:30:00",
-	"date": "2021-07-14",
-	"reason": "mah tires",
-	"vip_status": false,
-	"technician": "Liz"
-}
-```
-SERVICE APPOINTMENT HISTORY: This will show the detail based on the "VIN" that is input. You will see ALL service appointments for the vehicle associated with the "vin" that you input.
-At the end of the URL, tack on the vin associated with the vehicle that you wish to view. If you leave this field blank, it will show all service history for all vehicles.
-```
-{
-	"service_history": [
 		{
-			"id": 1,
+			"date_time": "12:30:00T2021-07-14",
+			"reason": "tires",
+			"status": false,
 			"vin": "1222",
-			"customer_name": "Barry",
-			"time": "12:30:00",
-			"date": "2021-07-14",
-			"reason": "mah tires",
-			"vip_status": false,
+			"customer": "Barry",
 			"technician": "Liz"
-		},
-		{
-			"id": 6,
-			"vin": "1222",
-			"customer_name": "Gary",
-			"time": "12:30:00",
-			"date": "2021-07-11",
-			"reason": "new car",
-			"vip_status": false,
-			"technician": "Caleb"
-		}
-	]
-}
-```
-If we add "1222" to the request (eg. http://localhost:8080/api/servicehistory/1222), then it will show the above. If you put a vin that does not exist in the system, it will return a blank list.
-
-
-CREATE SERVICE APPOINTMENT - This will create a service appointment with the data input. It must follow the format. Remember, the "id" is automatically generated, so don't fill that in. To verify
-that it was added, just look at your service appointment list after creating a service appointment and it should be there.
-```
-		{
-			"id": 6,
-			"vin": "1222",
-			"customer_name": "Gary",
-			"time": "12:30:00",
-			"date": "2021-07-11",
-			"reason": "new car",
-			"vip_status": false,
-			"technician": "Caleb"
 		}
 
 ```
-DELETE SERVICE APPOINTMENT - Just input the "id" of the service appointment that you want to delete at the end of the url. For example, if we wanted to delete the above service history appointment for Barry
-because we accidently input his name as "Gary", we would just enter 'http://localhost:8080/api/serviceappointment/6' into the field and send the request. We will receive a confirmation message saying that
-the service appointment was deleted.
+To delete a service appointment, input the specific "id" of the service appointment at the end of the URL. For instance, if there's a need to delete Barry's service history appointment due to an error in inputting his name as "Gary," the URL would look like this: 'http://localhost:8080/api/appointments/1'. Upon sending this request, a confirmation message will be received, indicating the successful deletion of the service appointment.
 
 ## Sales microservice
 
@@ -481,7 +439,7 @@ CREATE SALESPERSON - This will create a salesperson with the data input. It must
     }
 
 ```
-DELETE SALESPERSON- Just input the "id" of the salesperson you want to delete into 'http://localhost:8090/api/salespeople/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/salespeople/2/' into the field and send the request. 
+DELETE SALESPERSON- Just input the "id" of the salesperson you want to delete into 'http://localhost:8090/api/salespeople/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/salespeople/2/' into the field and send the request.
 
 
 ### Customer
@@ -516,7 +474,7 @@ CREATE CUSTOMER - This will create a customer with the data input. It must follo
     }
 
 ```
-DELETE CUSTOMER- Just input the "id" of the customer you want to delete into 'http://localhost:8090/api/customers/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/customers/2/' into the field and send the request. 
+DELETE CUSTOMER- Just input the "id" of the customer you want to delete into 'http://localhost:8090/api/customers/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/customers/2/' into the field and send the request.
 
 ### Sale
 
@@ -560,5 +518,4 @@ CREATE SALE - This will create a sale with the data input. It must follow the fo
     }
 
 ```
-DELETE SALE- Just input the "id" of the sale you want to delete into 'http://localhost:8090/api/sales/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/sales/2/' into the field and send the request. 
-
+DELETE SALE- Just input the "id" of the sale you want to delete into 'http://localhost:8090/api/sales/:id/'. For example, if we wanted to delete John Doe we would enter 'http://localhost:8090/api/sales/2/' into the field and send the request.
