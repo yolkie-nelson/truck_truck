@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 const initialData = {
   vin: '',
   customer: '',
+  date: '',
   date_time: '',
   technician: '',
   reason: '',
@@ -43,6 +44,10 @@ function AppointmentForm() {
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
+    setFormData({
+      ...formData,
+      date: e.target.value,
+    });
   };
 
 
@@ -62,11 +67,11 @@ function AppointmentForm() {
     const isoDateTimeString = dateTimeObject.toISOString();
 
     const appointmentUrl = 'http://localhost:8080/api/appointments/';
-
+    const {vin, customer, date_time, technician, reason} = formData
 
     const fetchConfig = {
       method: 'post',
-      body: JSON.stringify({...formData, date_time: isoDateTimeString }),
+      body: JSON.stringify({vin, customer, date_time: isoDateTimeString, technician, reason}),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -76,7 +81,6 @@ function AppointmentForm() {
 
     if (response.ok) {
         setFormData(initialData);
-        console.log(initialData)
         document.getElementById('success-message').classList.remove('d-none');
     } else {
         document.getElementById('success-message').classList.add('d-none');
@@ -110,8 +114,7 @@ function AppointmentForm() {
                 )}
               </div>
               <div className="mb-3">
-                <select onChange={handleFormChange} placeholder="Choose a technician" required name="technician" id="technician"
-                  className={technicians.length > 0 ? 'form-select' : 'form-select d-none'}>
+                <select onChange={handleFormChange} placeholder="Choose a technician" required name="technician" id="technician" className='form-select' value={formData.technician}>
                   <option value="">Choose a technician</option>
                   {technicians.map((technician) => (
                     <option key={technician.id} value={technician.id}>
