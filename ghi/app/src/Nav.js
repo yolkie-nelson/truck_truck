@@ -56,6 +56,7 @@ function Nav() {
                 <li><NavLink className="dropdown-item" to="/manufacturers/create">Add a Manufacturer</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/models">Models</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/models/create">Add a Model</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/automobiles">Automobiles</NavLink></li>
               </ul>
             </li>
           </ul>
