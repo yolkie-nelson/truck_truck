@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 
 function AutomobilesList() {
   const [automobiles, setAutomobiles] = useState([])
@@ -55,6 +55,11 @@ function AutomobilesList() {
         })}
       </tbody>
     </table>
+    <div>
+      <Link to="/automobiles/create/">
+        <button className="btn btn-primary btn-lg">Add a Automobile</button>
+      </Link>
+    </div>
     </>
   );
 }

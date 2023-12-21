@@ -38,7 +38,7 @@ function ManufacturersList() {
       </tbody>
     </table>
     <div>
-      <Link to="/manufacturers/add/">
+      <Link to="/manufacturers/create/">
         <button className="btn btn-primary btn-lg">Add a manufacturer</button>
       </Link>
     </div>
