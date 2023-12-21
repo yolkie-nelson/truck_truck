@@ -6,6 +6,7 @@ function AppointmentsHistory() {
     const [automobiles, setAutomobiles] = useState([]);
     const [filterValue, setFilterValue] = useState("");
 
+
     const getData = async () => {
         const response = await fetch('http://localhost:8080/api/appointments/');
 
@@ -15,6 +16,7 @@ function AppointmentsHistory() {
         }
     };
 
+
     const fetchData = async () => {
         const fetch_auto = await fetch('http://localhost:8100/api/automobiles/');
         if (fetch_auto.ok) {
@@ -22,6 +24,7 @@ function AppointmentsHistory() {
             setAutomobiles(data.autos)
         }
     };
+
 
     const cancelAppointment = async (id) => {
         const cancel = await fetch(`http://localhost:8080/api/appointments/${id}/cancel/`, {
@@ -34,6 +37,7 @@ function AppointmentsHistory() {
         }
     };
 
+
     const finishAppointment = async (id) => {
         const finish = await fetch(`http://localhost:8080/api/appointments/${id}/finish/`, {
             method: 'PUT',
@@ -45,22 +49,24 @@ function AppointmentsHistory() {
         }
     };
 
+
   useEffect(()=>{
     getData()
     fetchData()
   }, [])
+
 
   function handleFilterChange(e) {
     console.log (e.target.value);
     setFilterValue(e.target.value)
   }
 
+
   function getFilterValue () {
     return appointments
     .filter(appointment =>
       appointment.vin.includes(filterValue))
   }
-
 
   return (
     <div className="mt-4">

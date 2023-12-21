@@ -1,6 +1,4 @@
-
 import React, { useEffect, useState } from 'react';
-
 
 const initialData = {
   name: '',
@@ -8,10 +6,10 @@ const initialData = {
   manufacturer_id: '',
 };
 
+
 function ModelsForm() {
   const [manufacturers, setManufacturers] = useState([]);
   const [formData, setFormData] = useState(initialData);
-
 
 
   const fetchData = async () => {
@@ -25,6 +23,7 @@ function ModelsForm() {
     }
   };
 
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -35,6 +34,7 @@ function ModelsForm() {
 
     const modelsUrl = 'http://localhost:8100/api/models/';
 
+
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(formData),
@@ -44,7 +44,6 @@ function ModelsForm() {
     };
 
     const response = await fetch(modelsUrl, fetchConfig);
-    console.log(formData)
 
     if (response.ok) {
         setFormData(initialData);

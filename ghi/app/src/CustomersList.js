@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 function CustomersList() {
   const [customers, setCustomers] = useState([])
+
 
   const getData = async () => {
     const response = await fetch('http://localhost:8090/api/customers/');
@@ -13,10 +15,10 @@ function CustomersList() {
     }
   }
 
+
   useEffect(()=>{
     getData()
   }, [])
-
   
   return (
     <>

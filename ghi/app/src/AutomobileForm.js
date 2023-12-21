@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
+
 function AutomobileForm() {
   const [models, setModels] = useState([])
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ function AutomobileForm() {
     }
   }
 
+
   useEffect(() => {
     getModelData();
   }, []);
@@ -28,8 +30,8 @@ function AutomobileForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-
     const automobileUrl = 'http://localhost:8100/api/automobiles/';
+
 
     const fetchConfig = {
       method: "post",
@@ -46,11 +48,12 @@ function AutomobileForm() {
         color: '',
         year: '',
         vin: '',
-        model: '',
+        model_id: '',
       });
     }
   }
 
+  
   const handleFormChange = (e) => {
     let value = e.target.value;
     const inputName = e.target.name;

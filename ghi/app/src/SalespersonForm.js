@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
+
 function SalespersonForm () {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -7,10 +8,12 @@ function SalespersonForm () {
     employee_id: '',
   })
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const url = `http://localhost:8090/api/salespeople/`;
+
 
     const fetchConfig = {
       method: "post",
@@ -31,6 +34,7 @@ function SalespersonForm () {
     }
   }
 
+  
   const handleFormChange = (e) => {
     const inputName = e.target.name;
     const value = e.target.value;

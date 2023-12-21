@@ -10,6 +10,7 @@ const initialData = {
   reason: '',
 };
 
+
 function AppointmentForm() {
   const [technicians, setTechnician] = useState([]);
   const [formData, setFormData] = useState(initialData);
@@ -26,9 +27,11 @@ function AppointmentForm() {
     }
   };
 
+
   useEffect(() => {
     fetchData();
   }, []);
+
 
   const handleFormChange = (e) => {
     setFormData({
@@ -37,9 +40,11 @@ function AppointmentForm() {
     });
   };
 
+
   const handleDateChange = (e) => {
     setDate(e.target.value);
   };
+
 
   const handleTimeChange = (e) => {
     setTime(e.target.value);
@@ -50,7 +55,6 @@ function AppointmentForm() {
   };
 
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const dateTimeString = date + 'T' + time;
@@ -58,6 +62,7 @@ function AppointmentForm() {
     const isoDateTimeString = dateTimeObject.toISOString();
 
     const appointmentUrl = 'http://localhost:8080/api/appointments/';
+
 
     const fetchConfig = {
       method: 'post',
@@ -68,7 +73,6 @@ function AppointmentForm() {
     };
 
     const response = await fetch(appointmentUrl, fetchConfig);
-
 
     if (response.ok) {
         setFormData(initialData);

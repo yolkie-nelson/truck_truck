@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 function ModelsList() {
   const [models, setModels] = useState([])
+
 
   const getData = async () => {
     const response = await fetch('http://localhost:8100/api/models/');
@@ -13,10 +15,10 @@ function ModelsList() {
     }
   }
 
+
   useEffect(()=>{
     getData()
   }, [])
-
 
   return (
     <>

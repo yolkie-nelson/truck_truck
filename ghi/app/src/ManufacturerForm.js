@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from 'react';
 
+
 function ManufacturerForm () {
   const [formData, setFormData] = useState({
     name: '',
   })
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const manufacturersUrl = 'http://localhost:8100/api/manufacturers/';
+
 
     const fetchConfig = {
       method: "post",
@@ -27,6 +30,7 @@ function ManufacturerForm () {
     }
   }
 
+  
   const handleFormChange = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;

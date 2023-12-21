@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+
 function SalesHistory() {
   const [sales, setSales] = useState([])
   const [salespeople, setSalespeople] = useState([])
@@ -31,6 +32,7 @@ function SalesHistory() {
     getSalesPeopleData()
   }, [])
 
+  
   function getSalesperson(employee) {
    setFilteredSales(sales.filter((sale) => sale.salesperson.employee_id === employee))
   }

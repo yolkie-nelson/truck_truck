@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
+
 function TechnicianForm () {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     employee_id: '',
   })
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,6 +33,7 @@ function TechnicianForm () {
     }
   }
 
+  
   const handleFormChange = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;

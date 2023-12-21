@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 function SalesList() {
   const [sales, setSales] = useState([])
+
 
   const getData = async () => {
     const response = await fetch('http://localhost:8090/api/sales/');
@@ -13,6 +15,7 @@ function SalesList() {
     }
   }
 
+  
   useEffect(()=>{
     getData()
   }, [])

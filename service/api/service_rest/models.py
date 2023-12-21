@@ -7,7 +7,8 @@ class AutomobileVO(models.Model):
 
     def __str__(self):
         return f"VIN: {self.vin} - Sold: {self.sold}"
-    
+
+
 class Technician(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -25,7 +26,7 @@ class Appointment(models.Model):
     customer = models.CharField(max_length=255)
     technician = models.ForeignKey(
         Technician,
-        related_name ="technician",
+        related_name="technician",
         on_delete=models.CASCADE)
 
     def __str__(self):

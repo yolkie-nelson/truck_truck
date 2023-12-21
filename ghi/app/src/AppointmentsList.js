@@ -6,6 +6,7 @@ function AppointmentsList() {
     const [appointments, setAppointments] = useState([]);
     const [automobiles, setAutomobiles] = useState([]);
 
+
     const getData = async () => {
         const response = await fetch('http://localhost:8080/api/appointments/');
 
@@ -15,6 +16,7 @@ function AppointmentsList() {
         }
     };
 
+
     const fetchData = async () => {
         const fetch_auto = await fetch('http://localhost:8100/api/automobiles/');
         if (fetch_auto.ok) {
@@ -22,6 +24,7 @@ function AppointmentsList() {
             setAutomobiles(data.autos)
         }
     };
+
 
     const cancelAppointment = async (id) => {
         const cancel = await fetch(`http://localhost:8080/api/appointments/${id}/cancel/`, {
@@ -34,6 +37,7 @@ function AppointmentsList() {
         }
     };
 
+
     const finishAppointment = async (id) => {
         const finish = await fetch(`http://localhost:8080/api/appointments/${id}/finish/`, {
             method: 'PUT',
@@ -45,11 +49,11 @@ function AppointmentsList() {
         }
     };
 
+
   useEffect(()=>{
     getData()
     fetchData()
   }, [])
-
 
   return (
     <div className="mt-4">

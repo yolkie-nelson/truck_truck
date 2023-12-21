@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 function AutomobilesList() {
   const [automobiles, setAutomobiles] = useState([])
+
 
   const getData = async () => {
     const response = await fetch('http://localhost:8100/api/automobiles/');
@@ -13,6 +15,7 @@ function AutomobilesList() {
     }
   }
 
+
   function setSold (bool) {
     if (bool){
         return "Yes"
@@ -21,10 +24,10 @@ function AutomobilesList() {
     }
   }
 
+
   useEffect(()=>{
     getData()
   }, [])
-
 
   return (
     <>

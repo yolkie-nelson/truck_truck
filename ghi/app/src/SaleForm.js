@@ -11,6 +11,7 @@ function SaleForm() {
     price: '',
   })
 
+
   const getAutoData = async () => {
     const autoUrl = 'http://localhost:8100/api/automobiles/';
     const response = await fetch(autoUrl);
@@ -43,6 +44,7 @@ function SaleForm() {
     }
   }
 
+
   useEffect(() => {
     getAutoData();
     getSalespersonData();
@@ -52,6 +54,7 @@ function SaleForm() {
   const updateData = {
     sold: true,
 };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,6 +66,7 @@ function SaleForm() {
         });
 
     const saleUrl = 'http://localhost:8090/api/sales/';
+
 
     const fetchConfig = {
       method: "post",
@@ -84,6 +88,7 @@ function SaleForm() {
     }
   }
 
+  
   const handleFormChange = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;
