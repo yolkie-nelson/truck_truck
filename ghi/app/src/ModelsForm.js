@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 const initialData = {
   name: '',
   picture_url: '',
-  manufacturer: '',
+  manufacturer_id: '',
 };
 
 function ModelsForm() {
@@ -53,8 +53,12 @@ function ModelsForm() {
 
 
   const handleFormChange = (e) => {
-    const value = e.target.value;
+    let value = e.target.value;
     const inputName = e.target.name;
+    if (inputName === 'manufacturer_id' && value !== '') {
+        value = parseInt(value, 10); // Convert to integer (assuming base 10)
+      }
+
     setFormData({
       ...formData,
 
@@ -78,7 +82,7 @@ function ModelsForm() {
                 <label htmlFor="picture_url">Picture URL...</label>
               </div>
               <div className="mb-3">
-                <select onChange={handleFormChange} value={formData.manufacturer} type="text" required name="manufacturer" id="manufacturer" className="form-select">
+                <select onChange={handleFormChange} value={formData.manufacturer_id} type="text" required name="manufacturer_id" id="manufacturer_id" className="form-select">
                   <option value="">Choose an Manufacturer</option>
                   {manufacturers.map(manufacturer => {
                     return (

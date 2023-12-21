@@ -34,7 +34,7 @@ function ModelsList() {
           return (
             <tr key={model.id}>
                 <td>{ model.name }</td>
-                <td>{ model.manufacturer }</td>
+                <td>{ model.manufacturer.name }</td>
                 <td><img src={model.picture_url} alt={model.name} style={{ width: '100px', height: 'auto' }} /></td>
             </tr>
           );
@@ -42,7 +42,7 @@ function ModelsList() {
       </tbody>
     </table>
     <div>
-      <Link to="/models/add/">
+      <Link to="/models/create/">
         <button className="btn btn-primary btn-lg">Add a model</button>
       </Link>
     </div>
