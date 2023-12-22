@@ -57,7 +57,6 @@ function AppointmentsHistory() {
 
 
   function handleFilterChange(e) {
-    console.log (e.target.value);
     setFilterValue(e.target.value)
   }
 
@@ -71,7 +70,8 @@ function AppointmentsHistory() {
   return (
     <div className="mt-4">
     <h1>Service History</h1>
-    <input onChange={handleFilterChange} />
+    <span class="p-2 mt-2">Search</span>
+    <input type="search" onChange={handleFilterChange} />
     <table className="table table-striped">
       <thead>
         <tr>

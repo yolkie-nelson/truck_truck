@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 
 
@@ -65,7 +64,6 @@ function AppointmentForm() {
     const dateTimeString = date + 'T' + time;
     const dateTimeObject = new Date(dateTimeString);
     const isoDateTimeString = dateTimeObject.toISOString();
-
     const appointmentUrl = 'http://localhost:8080/api/appointments/';
     const {vin, customer, date_time, technician, reason} = formData
 
